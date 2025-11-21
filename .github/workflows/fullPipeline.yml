@@ -2,7 +2,7 @@ name: Deploy Laravel Backend
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "12.x" ]
 
 jobs:
   deploy:
