@@ -2,8 +2,12 @@
 
 set -e
 
-sudo apt update -y
-sudo apt install -y git unzip curl php php-cli php-fpm php-mbstring php-xml php-bcmath php-mysql
+sudo apt update
+sudo apt install -y software-properties-common
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt update
+sudo apt install -y php8.2 php8.2-cli php8.2-fpm php8.2-mysql php8.2-xml php8.2-mbstring php8.2-bcmath curl unzip git
+
 
 # Install composer
 # if not command exists ,  /dev/null to make the o/p clean 
