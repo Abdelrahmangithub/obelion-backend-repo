@@ -27,9 +27,9 @@ cd /var/www/backend
 # Clone / Pull Project
 # if not dirctory exists
 if [ ! -d ".git" ]; then
-  git clone https://github.com/Abdelrahmangithub/obelion-backend-repo .
+  git clone -b 12.x https://github.com/Abdelrahmangithub/obelion-backend-repo .
 else
-  git pull origin main
+  git pull origin 12.x
 fi
 
 composer install --no-interaction --prefer-dist --optimize-autoloader
