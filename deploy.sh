@@ -7,6 +7,13 @@ sudo apt install -y software-properties-common
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
 sudo apt install -y php8.2 php8.2-cli php8.2-fpm php8.2-mysql php8.2-xml php8.2-mbstring php8.2-bcmath curl unzip git
+sudo update-alternatives --set php /usr/bin/php8.2
+sudo update-alternatives --set phar /usr/bin/phar8.2
+sudo update-alternatives --set phar.phar /usr/bin/phar.phar8.2
+sudo update-alternatives --set phpize /usr/bin/phpize8.2
+sudo update-alternatives --set php-config /usr/bin/php-config8.2
+
+php -v
 
 
 # Install composer
