@@ -23,7 +23,7 @@ cd /var/www/backend
 # Clone / Pull Project
 # if not dirctory exists
 if [ ! -d ".git" ]; then
-  git clone https://github.com/YOUR_USER/YOUR_BACKEND_REPO.git .
+  git clone https://github.com/Abdelrahmangithub/obelion-backend-repo .
 else
   git pull origin main
 fi
