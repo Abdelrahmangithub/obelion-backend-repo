@@ -1,0 +1,69 @@
+name: Deploy Laravel Backend
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH to EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.BACKEND_HOST }}
+          username: ${{ secrets.BACKEND_USER }}
+          key: ${{ secrets.BACKEND_SSH_KEY }}
+          script: |
+            # Update system
+            sudo apt update -y
+
+            # Install dependencies
+            sudo apt install -y git unzip curl php php-cli php-fpm php-mbstring php-xml php-bcmath php-mysql
+
+            # Install composer
+            if ! command -v composer &> /dev/null
+            then
+              curl -sS https://getcomposer.org/installer -o composer-setup.php
+              php composer-setup.php
+              sudo mv composer.phar /usr/local/bin/composer
+            fi
+
+            # Prepare project folder
+            if [ ! -d "/var/www/backend" ]; then
+              sudo mkdir -p /var/www/backend
+              sudo chown -R $USER:$USER /var/www/backend
+            fi
+
+            cd /var/www/backend
+
+            # If project not cloned, clone it — else pull updates
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/YOUR_USER/YOUR_BACKEND_REPO.git .
+            else
+              git pull origin main
+            fi
+
+            # Install backend dependencies
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+
+            # Environment file
+            if [ ! -f .env ]; then
+              cp .env.example .env
+            fi
+
+            # Generate key
+            php artisan key:generate --force
+
+            # Run migrations
+            php artisan migrate --force
+
+            # Restart old server if exists
+            pkill -f "php artisan serve" || true
+
+            # Start Laravel backend
+            nohup php artisan serve --host=0.0.0.0 --port=8000 > /dev/null 2>&1 &
