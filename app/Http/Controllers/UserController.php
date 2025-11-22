@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+// A simple UserController to handle user-related requests.
+// This controller includes methods to list users and create a new user.
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
