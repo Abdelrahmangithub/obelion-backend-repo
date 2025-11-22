@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -e # Exit immediately if a command exits with a non-zero status
 
 sudo apt update
 sudo apt install -y software-properties-common
@@ -15,6 +15,7 @@ sudo update-alternatives --set phar.phar /usr/bin/phar.phar8.2
 sudo update-alternatives --set phpize /usr/bin/phpize8.2
 sudo update-alternatives --set php-config /usr/bin/php-config8.2
 
+# Verify PHP installation expected version 8.2
 php -v
 
 
