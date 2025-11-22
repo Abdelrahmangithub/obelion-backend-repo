@@ -1,5 +1,7 @@
 <?php
 
+// The aim of this model file is to define the User model for the Laravel application.
+// This model represents users in the application and includes attributes for name, email, and password.
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
